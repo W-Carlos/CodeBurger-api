@@ -4,12 +4,18 @@ module.exports = {
         "node": true
     },
     "extends": [
-        "standard"
+        "standard",
+        "prettier"
+    ],
+    "plugins": [
+        "prettier"
     ],
     "parserOptions": {
         "ecmaVersion": 13,
         "sourceType": "module"
     },
     "rules": {
+        "camelcase": "off",
+        "prettier/prettier": "error"
     }
 };
