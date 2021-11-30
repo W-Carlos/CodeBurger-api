@@ -10,6 +10,7 @@ class UserController{
     async store(request, response){
         // O metodo store vai cadastrar o novo usuario
 
+        // Validando informações
         const schema = Yup.object().shape({
             name: Yup.string().required(),
             email: Yup.string().email().required(),
@@ -24,12 +25,24 @@ class UserController{
         } */
 
         try{
+            // Verifica as informações e retorna o erro
             await schema.validateSync(request.body, {abortEarly: false})
         }catch(err){
             return response.status(400).json({error: err.errors})
         }
 
         const { name, email, password_hash, admin } = request.body
+
+        // Verificando se um email já existe
+        const userExists = await User.findOne({
+            where: { email }
+        })
+
+        if(userExists){
+            return response.status(400).json({error: "User already exists"})
+        }
+
+        console.log(userExists)
 
         const user = await User.create({
             id: v4(),
