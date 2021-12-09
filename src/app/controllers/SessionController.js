@@ -19,6 +19,7 @@ class SessionController {
                 .json({error: "Make sure your password or email are correct"})
         }; */
 
+        // Menssagem de erro caso o email ou senha estejam errados 
         if(!(await schema.isValid(request.body))) {
             return response
                 .status(401)
@@ -31,12 +32,14 @@ class SessionController {
             where: { email },
         })
 
+        // Validando o email
         if(!user) {
             return response
                 .status(401)
                 .json({error: "Make sure your password or email are correct"})
         }
 
+        // Validando a senha
         if(!(await user.checkPassword(password))) {
             return response
                 .status(401)

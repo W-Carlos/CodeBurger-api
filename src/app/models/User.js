@@ -26,6 +26,7 @@ class User extends Model {
         return this
     }
 
+    // Comparando se a senha digitada é a mesma que está no banco.
     checkPassword(password) {
         return bcrypt.compare(password, this.password_hash)
     }
