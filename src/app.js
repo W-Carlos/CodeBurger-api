@@ -1,5 +1,6 @@
 import express from "express"
 import routes from "./routes"
+import { resolve } from "path"
 
 import './database'
 class App {
@@ -13,7 +14,10 @@ class App {
 
     middlewares(){
         this.app.use(express.json())
-
+        this.app.use(
+            '/product-file', // Avisa qual rota vai servir os arquivos estaticos
+            express.static(resolve(__dirname, "..", "uploads")) // Procura o arquivo correspondente ao nome que geramos
+        )
     }
 
     routes(){

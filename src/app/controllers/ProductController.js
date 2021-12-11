@@ -1,6 +1,7 @@
 /* Controller de Produtos */
 
 import * as Yup from 'yup'
+import Product from '../models/Product'
 
 // Validação dos produtos
 class ProductController{
@@ -12,13 +13,30 @@ class ProductController{
         })
 
         try{
-            // Verifica as informações e retorna o erro
+            //  Teste para verificar as informações e retorna o erro
             await schema.validateSync(request.body, {abortEarly: false})
         }catch(err){
             return response.status(400).json({error: err.errors})
         }
 
-        return response.json({ok: true})
+        const { filename: path } = request.file
+        const { name, price, category } = request.body
+
+        const product = await Product.create({
+            name,
+            price,
+            category,
+            path
+        })
+
+        return response.json(product)
+    }
+
+    // Essa rota retorna todos os produtos
+    async index(request, response){
+        const products = await Product.findAll()
+
+        return response.json(products)
     }
 }
 
