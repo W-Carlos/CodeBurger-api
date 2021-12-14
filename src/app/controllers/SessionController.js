@@ -1,6 +1,8 @@
 /* Vai ser responsavel por cuidar da sessão do usuario */
 
 import * as Yup from 'yup'
+import jwt from 'jsonwebtoken'
+import authConfg from '../../config/auth'
 import User from '../models/User'
 
 // Validação do login
@@ -51,7 +53,11 @@ class SessionController {
             id: user.id, 
             email, 
             name: user.name, 
-            admin: user.admin
+            admin: user.admin,
+            token:jwt.sign({ id: user.id }, authConfg.secret, {
+                expiresIn: authConfg.expiresIn
+                // Configuração para gerar o token do usuário
+            })
         })
     }
 }
