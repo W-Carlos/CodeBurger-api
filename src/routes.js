@@ -4,7 +4,7 @@ import multerConfig from "./config/multer"
 
 import ProductController from "./app/controllers/ProductController"
 import SessionController from "./app/controllers/SessionController"
-
+import CategoryController from "./app/controllers/CategoryController"
 import UserController from "./app/controllers/UserController"
 
 import authMiddleware from './app/middlewares/auth'
@@ -22,5 +22,8 @@ routes.use(authMiddleware)// Todas as rotas que estiverem abaixo vão receber o 
 
 routes.post('/products', upload.single('file'), ProductController.store)
 routes.get('/products', ProductController.index)
+
+routes.post('/categories', CategoryController.store)
+routes.get('/categories', CategoryController.index)
 
 export default routes
