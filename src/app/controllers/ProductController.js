@@ -2,6 +2,7 @@
 
 import * as Yup from 'yup'
 import Product from '../models/Product'
+import Category from '../models/Category'
 
 // Validação dos produtos
 class ProductController{
@@ -9,7 +10,7 @@ class ProductController{
         const schema = Yup.object().shape({
             name: Yup.string().required(),
             price: Yup.number().required(),
-            category: Yup.string().required()
+            category_id: Yup.number().required()
         })
 
         try{
@@ -20,12 +21,12 @@ class ProductController{
         }
 
         const { filename: path } = request.file
-        const { name, price, category } = request.body
+        const { name, price, category_id } = request.body
 
         const product = await Product.create({
             name,
             price,
-            category,
+            category_id,
             path
         })
 
@@ -34,7 +35,15 @@ class ProductController{
 
     // Essa rota retorna todos os produtos
     async index(request, response){
-        const products = await Product.findAll()
+        const products = await Product.findAll({
+            include:[
+                {
+                    model: Category, 
+                    as: 'category',
+                    attributes: ['id', 'name']
+                }
+            ]
+        })
 
         console.log(request.userId)
         return response.json(products)
