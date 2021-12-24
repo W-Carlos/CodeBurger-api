@@ -7,7 +7,6 @@ class Product extends Model {
         super.init({
             name: Sequelize.STRING,
             price: Sequelize.STRING,
-            category: Sequelize.STRING,
             path: Sequelize.STRING,
             url: {
                 // Este campo não existe no banco de dados
@@ -22,6 +21,16 @@ class Product extends Model {
             sequelize,
         }
         )
+        return this
+    }
+
+    // Criando relacionamento entre tabelas
+
+    static associate(models){
+        this.belongsTo(models.Category, { 
+            foreignKey: 'category_id', 
+            as: 'category' 
+        }) // category_id, esse campo é uma chave extrangeira, pois está fazendo referência a um campo da tabela de categorias.
     }
 }
 
