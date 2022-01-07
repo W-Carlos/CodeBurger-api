@@ -54,7 +54,7 @@ class SessionController {
             email, 
             name: user.name, 
             admin: user.admin,
-            token:jwt.sign({ id: user.id }, authConfg.secret, {
+            token:jwt.sign({ id: user.id, name: user.name }, authConfg.secret, {
                 expiresIn: authConfg.expiresIn
                 // Configuração para gerar o token do usuário
             })

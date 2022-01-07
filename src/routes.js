@@ -6,6 +6,7 @@ import ProductController from "./app/controllers/ProductController"
 import SessionController from "./app/controllers/SessionController"
 import CategoryController from "./app/controllers/CategoryController"
 import UserController from "./app/controllers/UserController"
+import OrderController from "./app/controllers/OrderController"
 
 import authMiddleware from './app/middlewares/auth'
 import { route } from "express/lib/application"
@@ -25,5 +26,7 @@ routes.get('/products', ProductController.index)
 
 routes.post('/categories', CategoryController.store)
 routes.get('/categories', CategoryController.index)
+
+routes.post('/orders', OrderController.store)
 
 export default routes

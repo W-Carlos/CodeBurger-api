@@ -21,8 +21,8 @@ export default (request, response, next) => {
                 throw new Error()
             }
 
-            console.log(decoded)
             request.userId = decoded.id
+            request.userName = decoded.id
 
             return next()
         })
