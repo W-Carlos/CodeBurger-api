@@ -3,6 +3,7 @@
 import * as Yup from "yup" // Yup valida os dados. O * representa todos os arquivos que devem ser exportados do Yup
 import Category from "../models/Category"
 import Product from "../models/Product"
+import Order from "../schemas/Order"
 
 class OrderController{
     async store(request, response){
@@ -61,12 +62,15 @@ class OrderController{
         const order = {
             user: {
                 id: request.userId,
-                name: request.userName
+                name: request.userName,
             },
-            products: editedProduct
+            products: editedProduct,
+            status: 'Pedido realizado',
         }
 
-        return response.status(201).json(editedProduct)
+        const orderResponse = await Order.create(order)
+
+        return response.status(201).json(orderResponse)
     }
 }
 
