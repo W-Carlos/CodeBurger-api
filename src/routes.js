@@ -15,18 +15,20 @@ const upload = multer(multerConfig)
 
 const routes = new Router()
 
-routes.post('/users', UserController.store)
+routes.post('/users', UserController.store) // Cria novo usuario
 
-routes.post('/sessions', SessionController.store)
+routes.post('/sessions', SessionController.store) // Cria nova seção de produtos
 
 routes.use(authMiddleware)// Todas as rotas que estiverem abaixo vão receber o middleware
 
-routes.post('/products', upload.single('file'), ProductController.store)
-routes.get('/products', ProductController.index)
+routes.post('/products', upload.single('file'), ProductController.store) // Cria novo produto
+routes.get('/products', ProductController.index) // Mostra todos os produtos
 
 routes.post('/categories', CategoryController.store)
 routes.get('/categories', CategoryController.index)
 
-routes.post('/orders', OrderController.store)
+routes.post('/orders', OrderController.store) // Cria novo pedido
+routes.put('/orders/:id', OrderController.update) // Atualiza o status do pedido
+routes.get('/orders', OrderController.index) // Mostra todos os pedidod
 
 export default routes
