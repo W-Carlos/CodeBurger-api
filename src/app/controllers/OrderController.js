@@ -4,6 +4,7 @@ import * as Yup from "yup" // Yup valida os dados. O * representa todos os arqui
 import Category from "../models/Category"
 import Product from "../models/Product"
 import Order from "../schemas/Order"
+import User from "../models/User"
 
 class OrderController{
     async store(request, response){
@@ -92,6 +93,13 @@ class OrderController{
             await schema.validateSync(request.body, {abortEarly: false})
         }catch(err){
             return response.status(400).json({error: err.errors})
+        }
+
+        // Definindo que administradores podem atualizar pedidos
+        const {admin: isAdmin} = await User.findByPk(request.userId)
+
+        if(!isAdmin){
+            return response.status(401).json()
         }
 
         const { id } = request.params

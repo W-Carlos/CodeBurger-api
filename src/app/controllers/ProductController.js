@@ -3,6 +3,8 @@
 import * as Yup from 'yup'
 import Product from '../models/Product'
 import Category from '../models/Category'
+import User from '../models/User'
+
 
 // Validação dos produtos
 class ProductController{
@@ -18,6 +20,13 @@ class ProductController{
             await schema.validateSync(request.body, {abortEarly: false})
         }catch(err){
             return response.status(400).json({error: err.errors})
+        }
+
+        // Definindo que apenas administradores podem criar um novo produto
+        const {admin: isAdmin} = await User.findByPk(request.userId)
+
+        if(!isAdmin){
+            return response.status(401).json()
         }
 
         const { filename: path } = request.file

@@ -2,6 +2,7 @@
 
 import * as Yup from 'yup'
 import Category from '../models/Category'
+import User from '../models/User'
 
 // Validação dos produtos
 class CategoryController{
@@ -15,6 +16,14 @@ class CategoryController{
                     await schema.validateSync(request.body, {abortEarly: false})
                 }catch(err){
                     return response.status(400).json({error: err.errors})
+                }
+
+                // Definido que só administradores podem criar uma nova categoria.
+                // Verificando se o usuario é admin
+                const {admin: isAdmin} = await User.findByPk(request.userId)
+
+                if(!isAdmin){
+                    return response.status(401).json()
                 }
 
                 const { name } = request.body
@@ -33,6 +42,7 @@ class CategoryController{
                     return response.status(400).json({error: 'Category already exists'})
                 }
 
+                // Criando nova categoria
                 const { id } = await Category.create({ name })
 
                 return response.json({name, id})
