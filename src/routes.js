@@ -25,8 +25,9 @@ routes.post('/products', upload.single('file'), ProductController.store) // Cria
 routes.get('/products', ProductController.index) // Mostra todos os produtos
 routes.put('/products/:id', upload.single('file'), ProductController.update)// Rota de atualização de produto
 
-routes.post('/categories', CategoryController.store)
+routes.post('/categories', upload.single('file'), CategoryController.store)// Rota para criar nova categoria
 routes.get('/categories', CategoryController.index)
+routes.put('/categories/:id', upload.single('file'), CategoryController.update) // Rota para editar categoria
 
 routes.post('/orders', OrderController.store) // Cria novo pedido
 routes.put('/orders/:id', OrderController.update) // Atualiza o status do pedido
