@@ -18,6 +18,11 @@ class App {
             '/product-file', // Avisa qual rota vai servir os arquivos estaticos
             express.static(resolve(__dirname, "..", "uploads")) // Procura o arquivo correspondente ao nome que geramos
         )
+
+        this.app.use(
+            '/category-file', // Avisa qual rota vai servir os arquivos estaticos
+            express.static(resolve(__dirname, "..", "uploads")) // Procura o arquivo correspondente ao nome que geramos
+        )
     }
 
     routes(){
