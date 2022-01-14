@@ -8,6 +8,7 @@ class Product extends Model {
             name: Sequelize.STRING,
             price: Sequelize.STRING,
             path: Sequelize.STRING,
+            offer: Sequelize.BOOLEAN,
             url: {
                 // Este campo não existe no banco de dados
                 // Gerando uma url quando o usuario solicita informações do produto

@@ -23,6 +23,7 @@ routes.use(authMiddleware)// Todas as rotas que estiverem abaixo vão receber o 
 
 routes.post('/products', upload.single('file'), ProductController.store) // Cria novo produto
 routes.get('/products', ProductController.index) // Mostra todos os produtos
+routes.put('/products/:id', upload.single('file'), ProductController.update)// Rota de atualização de produto
 
 routes.post('/categories', CategoryController.store)
 routes.get('/categories', CategoryController.index)
