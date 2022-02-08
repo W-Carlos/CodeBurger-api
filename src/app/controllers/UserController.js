@@ -1,13 +1,13 @@
 /* O controller é onde as informações vão entrar na aplicação. O controller vai manipular essas informações fazer algumas validações e depois chamar o Model pra gravar as informações no banco de dados */
 
-import { response } from "express"
-import { v4 } from "uuid"
-import * as Yup from "yup" // Yup valida os dados. O * representa todos os arquivos que devem ser exportados do Yup
+/* import { response } from 'express' */
+import { v4 } from 'uuid'
+import * as Yup from 'yup' // Yup valida os dados. O * representa todos os arquivos que devem ser exportados do Yup
 
 import User from '../models/User'
 
-class UserController{
-    async store(request, response){
+class UserController {
+    async store(request, response) {
         // O metodo store vai cadastrar o novo usuario
 
         // Validando informações
@@ -24,11 +24,11 @@ class UserController{
                 .json({error: "Make sure your data is correct"})
         } */
 
-        try{
+        try {
             // Verifica as informações e retorna o erro
-            await schema.validateSync(request.body, {abortEarly: false})
-        }catch(err){
-            return response.status(400).json({error: err.errors})
+            await schema.validateSync(request.body, { abortEarly: false })
+        } catch (err) {
+            return response.status(400).json({ error: err.errors })
         }
 
         const { name, email, password, admin } = request.body
@@ -38,8 +38,8 @@ class UserController{
             where: { email }
         })
 
-        if(userExists){
-            return response.status(400).json({error: "User already exists"})
+        if (userExists) {
+            return response.status(400).json({ error: 'User already exists' })
         }
 
         console.log(userExists)
@@ -52,7 +52,7 @@ class UserController{
             admin
         })
 
-        return response.status(201).json({id: user.id, name, email, admin})
+        return response.status(201).json({ id: user.id, name, email, admin })
     }
 }
 

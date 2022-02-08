@@ -1,16 +1,15 @@
 /* Migration para adicionar image nas categorias */
 
-'use strict';
+'use strict'
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
-      await queryInterface.addColumn('categories', 'path',{ 
-        type: Sequelize.STRING 
-      }); 
-  },
+    up: async (queryInterface, Sequelize) => {
+        await queryInterface.addColumn('categories', 'path', {
+            type: Sequelize.STRING
+        })
+    },
 
-  down: async (queryInterface, Sequelize) => {
-    await queryInterface.removeColumn('categories', 'path');
-    
-  }
-};
+    down: async (queryInterface, Sequelize) => {
+        await queryInterface.removeColumn('categories', 'path')
+    }
+}

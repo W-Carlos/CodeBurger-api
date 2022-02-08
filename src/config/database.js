@@ -1,4 +1,4 @@
-/* Configurações do sequelize com o postgres*/
+/* Configurações do sequelize com o postgres */
 
 module.exports = {
     dialect: 'postgres',

@@ -1,21 +1,16 @@
 module.exports = {
-    "env": {
-        "es2021": true,
-        "node": true
+    env: {
+        es2021: true,
+        node: true,
     },
-    "extends": [
-        "standard",
-        "prettier"
-    ],
-    "plugins": [
-        "prettier"
-    ],
-    "parserOptions": {
-        "ecmaVersion": 13,
-        "sourceType": "module"
+    extends: ['standard', 'prettier'],
+    plugins: ['prettier'],
+    parserOptions: {
+        ecmaVersion: 11,
+        sourceType: 'module',
     },
-    "rules": {
-        "camelcase": "off",
-        "prettier/prettier": "error"
-    }
-};
+    rules: {
+        camelcase: 'off',
+        'prettier/prettier': 'error',
+    },
+}

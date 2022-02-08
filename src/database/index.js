@@ -12,21 +12,24 @@ import configDatabase from '../config/database'
 const models = [User, Product, Category]
 
 class Database {
-    constructor(){
+    constructor() {
         this.init()
         this.mongo()
     }
 
     // Conexão com o postgres
-    init(){
+    init() {
         this.connection = new Sequelize(configDatabase)
         models
             .map((model) => model.init(this.connection))
-            .map((model) => model.associate && model.associate(this.connection.models))
+            .map(
+                (model) =>
+                    model.associate && model.associate(this.connection.models)
+            )
     }
 
     // Conexão com o mongodb
-    mongo(){
+    mongo() {
         this.mongoConnection = mongoose.connect(
             'mongodb://localhost:27017/codeburger',
             {

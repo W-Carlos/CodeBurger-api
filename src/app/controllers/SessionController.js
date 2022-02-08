@@ -7,7 +7,7 @@ import User from '../models/User'
 
 // Validação do login
 class SessionController {
-    async store(request, response){
+    async store(request, response) {
         const schema = Yup.object().shape({
             email: Yup.string().email().required(),
             password: Yup.string().required()
@@ -21,43 +21,46 @@ class SessionController {
                 .json({error: "Make sure your password or email are correct"})
         }; */
 
-        // Menssagem de erro caso o email ou senha estejam errados 
-        if(!(await schema.isValid(request.body))) {
+        // Menssagem de erro caso o email ou senha estejam errados
+        if (!(await schema.isValid(request.body))) {
             return response
                 .status(401)
-                .json({error: "Make sure your password or email are correct"})
+                .json({ error: 'Make sure your password or email are correct' })
         }
-        
-        const {email, password} = request.body
+
+        const { email, password } = request.body
 
         const user = await User.findOne({
-            where: { email },
+            where: { email }
         })
 
         // Validando o email
-        if(!user) {
+        if (!user) {
             return response
                 .status(401)
-                .json({error: "Make sure your password or email are correct"})
+                .json({ error: 'Make sure your password or email are correct' })
         }
 
         // Validando a senha
-        if(!(await user.checkPassword(password))) {
+        if (!(await user.checkPassword(password))) {
             return response
                 .status(401)
-                .json({error: "Make sure your password or email are correct"})
+                .json({ error: 'Make sure your password or email are correct' })
         }
-        
 
         return response.json({
-            id: user.id, 
-            email, 
-            name: user.name, 
+            id: user.id,
+            email,
+            name: user.name,
             admin: user.admin,
-            token:jwt.sign({ id: user.id, name: user.name }, authConfg.secret, {
-                expiresIn: authConfg.expiresIn
-                // Configuração para gerar o token do usuário
-            })
+            token: jwt.sign(
+                { id: user.id, name: user.name },
+                authConfg.secret,
+                {
+                    expiresIn: authConfg.expiresIn
+                    // Configuração para gerar o token do usuário
+                }
+            )
         })
     }
 }

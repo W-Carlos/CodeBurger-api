@@ -5,11 +5,9 @@ import Product from '../models/Product'
 import Category from '../models/Category'
 import User from '../models/User'
 
-
 // Validação dos produtos
-class ProductController{
-
-    async store(request, response){
+class ProductController {
+    async store(request, response) {
         const schema = Yup.object().shape({
             name: Yup.string().required(),
             price: Yup.number().required(),
@@ -17,17 +15,17 @@ class ProductController{
             offer: Yup.boolean()
         })
 
-        try{
+        try {
             //  Teste para verificar as informações e retorna o erro
-            await schema.validateSync(request.body, {abortEarly: false})
-        }catch(err){
-            return response.status(400).json({error: err.errors})
+            await schema.validateSync(request.body, { abortEarly: false })
+        } catch (err) {
+            return response.status(400).json({ error: err.errors })
         }
 
         // Definindo que apenas administradores podem criar um novo produto
-        const {admin: isAdmin} = await User.findByPk(request.userId)
+        const { admin: isAdmin } = await User.findByPk(request.userId)
 
-        if(!isAdmin){
+        if (!isAdmin) {
             return response.status(401).json()
         }
 
@@ -46,11 +44,11 @@ class ProductController{
     }
 
     // Essa rota retorna todos os produtos
-    async index(request, response){
+    async index(request, response) {
         const products = await Product.findAll({
-            include:[
+            include: [
                 {
-                    model: Category, 
+                    model: Category,
                     as: 'category',
                     attributes: ['id', 'name']
                 }
@@ -62,7 +60,7 @@ class ProductController{
     }
 
     /* Metodo para editar produto */
-    async update(request, response){
+    async update(request, response) {
         const schema = Yup.object().shape({
             name: Yup.string(),
             price: Yup.number(),
@@ -70,17 +68,17 @@ class ProductController{
             offer: Yup.boolean()
         })
 
-        try{
+        try {
             //  Teste para verificar as informações e retorna o erro
-            await schema.validateSync(request.body, {abortEarly: false})
-        }catch(err){
-            return response.status(400).json({error: err.errors})
+            await schema.validateSync(request.body, { abortEarly: false })
+        } catch (err) {
+            return response.status(400).json({ error: err.errors })
         }
 
         // Definindo que apenas administradores podem criar um novo produto
-        const {admin: isAdmin} = await User.findByPk(request.userId)
+        const { admin: isAdmin } = await User.findByPk(request.userId)
 
-        if(!isAdmin){
+        if (!isAdmin) {
             return response.status(401).json()
         }
 
@@ -89,13 +87,15 @@ class ProductController{
 
         const product = await Product.findByPk(id)
 
-        if(!product){
-            return response.status(401).json({error: "Make sure your product ID is correct"})
+        if (!product) {
+            return response
+                .status(401)
+                .json({ error: 'Make sure your product ID is correct' })
         }
 
         // Verificando se o usuario está enviando uma imagem
         let path
-        if(request.file){
+        if (request.file) {
             path = request.file.filename
         }
 
@@ -109,8 +109,7 @@ class ProductController{
                 path,
                 offer
             },
-            { where: { id }}
-        
+            { where: { id } }
         )
 
         return response.status(200).json()

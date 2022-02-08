@@ -1,15 +1,15 @@
-import { Router } from "express"
-import multer from "multer"
-import multerConfig from "./config/multer"
+import { Router } from 'express'
+import multer from 'multer'
+import multerConfig from './config/multer'
 
-import ProductController from "./app/controllers/ProductController"
-import SessionController from "./app/controllers/SessionController"
-import CategoryController from "./app/controllers/CategoryController"
-import UserController from "./app/controllers/UserController"
-import OrderController from "./app/controllers/OrderController"
+import ProductController from './app/controllers/ProductController'
+import SessionController from './app/controllers/SessionController'
+import CategoryController from './app/controllers/CategoryController'
+import UserController from './app/controllers/UserController'
+import OrderController from './app/controllers/OrderController'
 
 import authMiddleware from './app/middlewares/auth'
-import { route } from "express/lib/application"
+/* import { route } from 'express/lib/application' */
 
 const upload = multer(multerConfig)
 
@@ -19,13 +19,13 @@ routes.post('/users', UserController.store) // Cria novo usuario
 
 routes.post('/sessions', SessionController.store) // Cria nova seção de produtos
 
-routes.use(authMiddleware)// Todas as rotas que estiverem abaixo vão receber o middleware
+routes.use(authMiddleware) // Todas as rotas que estiverem abaixo vão receber o middleware
 
 routes.post('/products', upload.single('file'), ProductController.store) // Cria novo produto
 routes.get('/products', ProductController.index) // Mostra todos os produtos
-routes.put('/products/:id', upload.single('file'), ProductController.update)// Rota de atualização de produto
+routes.put('/products/:id', upload.single('file'), ProductController.update) // Rota de atualização de produto
 
-routes.post('/categories', upload.single('file'), CategoryController.store)// Rota para criar nova categoria
+routes.post('/categories', upload.single('file'), CategoryController.store) // Rota para criar nova categoria
 routes.get('/categories', CategoryController.index)
 routes.put('/categories/:id', upload.single('file'), CategoryController.update) // Rota para editar categoria
 
