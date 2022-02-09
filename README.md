@@ -55,6 +55,8 @@ yarn dev
 * [Mongodb](https://www.mongodb.com/)
 * [Multer](https://www.npmjs.com/package/multer)
 * [Uuid](https://www.npmjs.com/package/uuid)
+* [Prettier](https://prettier.io/)
+* [Eslint](https://eslint.org/)
 
 ---
 <p align="center">Feito por Wend Carlos 👋</p>
