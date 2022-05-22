@@ -13,7 +13,7 @@ class Category extends Model {
                     // Gerando uma url quando o usuario solicita informações do produto
                     type: Sequelize.VIRTUAL,
                     get() {
-                        return `http://localhost:3000/category-file/${this.path}`
+                        return `http://localhost:3001/category-file/${this.path}`
                     }
                 }
             },
