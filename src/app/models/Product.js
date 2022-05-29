@@ -15,7 +15,7 @@ class Product extends Model {
                     // Gerando uma url quando o usuario solicita informações do produto
                     type: Sequelize.VIRTUAL,
                     get() {
-                        return `http://localhost:3000/product-file/${this.path}`
+                        return `http://localhost:3001/product-file/${this.path}`
                     }
                 }
             },
