@@ -27,7 +27,7 @@ Obs: Vocé pode escolher qualquer nome para a base de dados, devendo somente alt
 É necessário rodar as migrations para que o Sequelize crie as tabelas necessárias no banco de dados, através do comando:
 
 ```bash
-npx sequelize db:migrate
+yarn sequelize db:migrate
 ```
 
 Instalando as dependências.
